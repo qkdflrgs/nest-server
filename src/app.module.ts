@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { UsersModule } from './users/users.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
+import { DmsModule } from './dms/dms.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, WorkspacesModule],
+  imports: [ConfigModule.forRoot(), UsersModule, WorkspacesModule, DmsModule],
   controllers: [AppController],
   providers: [AppService, ConfigService],
 })
