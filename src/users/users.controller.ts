@@ -13,7 +13,7 @@ import { User } from 'src/common/decorators/user.decorator';
 @ApiTags('USER')
 @Controller('api/users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @ApiOkResponse({
     type: UserDto,
