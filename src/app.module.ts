@@ -44,7 +44,7 @@ import { AuthModule } from './auth/auth.module';
         Workspaces,
       ],
       synchronize: false,
-      logging: true,
+      logging: process.env.NODE_ENV !== 'production',
       keepConnectionAlive: true,
       charset: 'utf8mb4',
     }),
