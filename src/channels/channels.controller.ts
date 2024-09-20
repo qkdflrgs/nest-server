@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ChatRequestDto } from 'src/dms/dto/chat.request.dto';
 import { ChannelsService } from './channels.service';
 import { User } from 'src/common/decorators/user.decorator';
+import { PostChatDto } from './dto/post-chat.dto';
 
 @ApiTags('CHANNEL')
 @Controller('api/workspaces/:url/channels')
@@ -34,12 +34,22 @@ export class ChannelsController {
   }
 
   @Post(':name/chats')
-  postChat(@Body() body: ChatRequestDto) {
-    console.log(body.content);
+  postChat(
+    @Param('url') url: string,
+    @Param('name') name: string,
+    @Body() body: PostChatDto,
+    @User() user,
+  ) {
+    return this.channelsService.postChat({
+      url,
+      name,
+      content: body.content,
+      myId: user.id,
+    });
   }
 
   @Post(':name/images')
-  postImages(@Body() body: ChatRequestDto) {
+  postImages(@Body() body) {
     console.log(body.content);
   }
 
