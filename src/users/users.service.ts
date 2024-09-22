@@ -9,7 +9,7 @@ import { ChannelMembers } from 'src/entities/ChannelMembers';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(Users) private userRepository: Repository<Users>,
+    @InjectRepository(Users) private usersRepository: Repository<Users>,
     @InjectRepository(WorkspaceMembers)
     private workspaceMembersRepository: Repository<WorkspaceMembers>,
     @InjectRepository(ChannelMembers)
@@ -17,7 +17,12 @@ export class UsersService {
     private dataSource: DataSource,
   ) {}
 
-  getUser() {}
+  async findByEmail(email: string) {
+    return this.usersRepository.findOne({
+      where: { email },
+      select: ['id', 'email', 'password'],
+    });
+  }
 
   async join(email: string, nickname: string, password: string) {
     const queryRunner = this.dataSource.createQueryRunner();
